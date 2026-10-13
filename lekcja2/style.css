@@ -1,0 +1,98 @@
+#naglowek {
+    background-color: rgb(227, 166, 96);
+    color: #111;
+    text-align: center;
+    padding: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 2px;
+
+}
+
+#naglowek h1 {
+    font-size: 36px;
+    font-weight: bold;
+    text-transform:uppercase;
+}
+
+
+
+#naglowek p {
+    font-size: 25px;
+    font-weight:lighter;
+    text-transform:lowercase;
+    color:darkslateblue;
+    font-style: italic;
+    font-variant: small-caps;
+}
+
+#baner {
+    background-image: url('https://picsum.photos/1200/300?random=1');
+    background-size: cover;
+    background-position:center;
+    color:#ffffff ;
+    text-align: center;
+    padding: 60px 20px;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+#baner h2 {
+    font-size: 42px;
+    letter-spacing: 1.2,;
+    text-transform: uppercase;
+    word-spacing: 8px;
+}
+
+#baner p {
+    font-size: 18px;
+    font-style: italic;
+
+}
+
+
+/* Sekcja treści */
+#tresc {
+    width: 100%;                  /* pełna szerokość */
+    background-color: #ecf0f1;   /* jasne szare tło */
+    padding: 20px 0;
+    min-height: 300px;
+}
+
+/* Każdy wpis wygląda jak post z Facebooka */
+.wpis {
+    width: 80%;                   /* 80% szerokości rodzica */
+    margin: 15px auto;            /* auto = wyśrodkowanie */
+    background-color: #ffffff;
+    border-radius: 8px;           /* zaokrąglone rogi */
+    padding: 15px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  /* delikatny cień */
+    font-family: 'Helvetica', Arial, sans-serif;
+}
+
+.wpis .autor {
+    font-weight: bold;
+    font-size: 16px;
+    color: #1a1a2e;
+    margin-bottom: 2px;
+}
+
+.wpis .data {
+    font-size: 12px;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+}
+
+.wpis .tekst {
+    font-size: 15px;
+    color: #2c3e50;
+    line-height: 1.6;             /* komfortowa wysokość linii */
+    margin-bottom: 12px;
+}
+
+.wpis .reakcje {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 10px;
+    color: #3498db;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
