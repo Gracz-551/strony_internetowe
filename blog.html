@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nasze historie — blog</title>
+  <style>
+    :root { color-scheme: light; --ink:#24302c; --muted:#66736d; --paper:#fffdf8; --green:#426b58; --line:#e6e6dc; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:#f2f3ed; color:var(--ink); font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif; }
+    header { padding:48px 20px 40px; text-align:center; background:#dfe9df; }
+    header h1 { margin:0; font-size:clamp(2rem,6vw,3.2rem); letter-spacing:-.04em; }
+    header p { margin:8px auto 0; max-width:600px; color:#4d6257; }
+    main { width:min(920px, calc(100% - 32px)); margin:32px auto 60px; display:grid; gap:24px; }
+    section,.post { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:24px; box-shadow:0 5px 20px #26392c0a; }
+    h2 { margin:0 0 16px; font-size:1.3rem; }
+    label { display:block; margin:14px 0 6px; font-weight:650; }
+    input,textarea { display:block; width:100%; border:1px solid #cbd2c9; border-radius:9px; padding:11px 12px; font:inherit; background:white; color:var(--ink); }
+    textarea { min-height:140px; resize:vertical; }
+    button { margin-top:14px; border:0; border-radius:9px; padding:11px 18px; background:var(--green); color:white; font:inherit; font-weight:700; cursor:pointer; }
+    button:hover { background:#31513f; }
+    .hint,.empty { color:var(--muted); font-size:.93rem; }
+    #posts { display:grid; gap:16px; }
+    .post h3 { margin:0 0 2px; font-size:1.25rem; }
+    .byline { margin:0 0 14px; color:var(--muted); font-size:.9rem; }
+    .post-body { white-space:pre-wrap; overflow-wrap:anywhere; }
+    .delete { background:transparent; color:#8a3939; padding:5px 0; margin-top:8px; font-size:.9rem; }
+    .delete:hover { background:transparent; text-decoration:underline; }
+    footer { text-align:center; color:var(--muted); padding:0 16px 28px; font-size:.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Nasze historie</h1>
+    <p>Osobiste opowieści, codzienne chwile i wspomnienia — miejsce, w którym każdy może opowiedzieć swoją historię.</p>
+  </header>
+  <main>
+    <section aria-labelledby="form-title">
+      <h2 id="form-title">Dodaj swój wpis</h2>
+      <form id="post-form">
+        <label for="author">Twoje imię lub pseudonim</label>
+        <input id="author" name="author" maxlength="60" required placeholder="Np. Ania" autocomplete="nickname">
+        <label for="title">Tytuł wpisu</label>
+        <input id="title" name="title" maxlength="100" required placeholder="O czym chcesz opowiedzieć?">
+        <label for="content">Treść</label>
+        <textarea id="content" name="content" maxlength="10000" required placeholder="Napisz swoją historię…"></textarea>
+        <button type="submit">Opublikuj wpis</button>
+      </form>
+      <p class="hint">Wpisy zapisują się w tej przeglądarce. Inne osoby korzystające z tego samego urządzenia mogą dodać własne wpisy.</p>
+    </section>
+    <section aria-labelledby="stories-title">
+      <h2 id="stories-title">Historie czytelników</h2>
+      <div id="posts" aria-live="polite"></div>
+    </section>
+  </main>
+  <footer>Podziel się swoją historią — z szacunkiem dla innych.</footer>
+  <script>
+    const STORAGE_KEY = 'nasze-historie-wpisy-v1';
+    const form = document.querySelector('#post-form');
+    const postsEl = document.querySelector('#posts');
+
+    function loadPosts() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+      catch { return []; }
+    }
+    function savePosts(posts) { localStorage.setItem(STORAGE_KEY, JSON.stringify(posts)); }
+    function render() {
+      const posts = loadPosts();
+      postsEl.replaceChildren();
+      if (!posts.length) {
+        const empty = document.createElement('p');
+        empty.className = 'empty';
+        empty.textContent = 'Nie ma jeszcze wpisów. Możesz dodać pierwszy!';
+        postsEl.append(empty);
+        return;
+      }
+      posts.forEach(post => {
+        const article = document.createElement('article');
+        article.className = 'post';
+        const title = document.createElement('h3'); title.textContent = post.title;
+        const byline = document.createElement('p'); byline.className = 'byline';
+        const date = new Date(post.createdAt).toLocaleString('pl-PL', { dateStyle:'medium', timeStyle:'short' });
+        byline.textContent = `Autor: ${post.author} · ${date}`;
+        const body = document.createElement('div'); body.className = 'post-body'; body.textContent = post.content;
+        const remove = document.createElement('button'); remove.type = 'button'; remove.className = 'delete'; remove.textContent = 'Usuń wpis';
+        remove.addEventListener('click', () => {
+          if (confirm('Usunąć ten wpis z tej przeglądarki?')) {
+            savePosts(loadPosts().filter(item => item.id !== post.id)); render();
+          }
+        });
+        article.append(title, byline, body, remove);
+        postsEl.append(article);
+      });
+    }
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const post = {
+        id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+        author: String(data.get('author')).trim(),
+        title: String(data.get('title')).trim(),
+        content: String(data.get('content')).trim(),
+        createdAt: new Date().toISOString()
+      };
+      if (!post.author || !post.title || !post.content) return;
+      const posts = loadPosts(); posts.unshift(post); savePosts(posts);
+      form.reset(); render();
+    });
+    render();
+  </script>
+</body>
+</html>
