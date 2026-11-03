@@ -1,0 +1,92 @@
+body {
+	background-color: #cfe8ff;
+}
+
+#ambulance {
+	/* TODO: dodaj rozmiar, ramkę, zaokrąglenia, stylowanie napisu i gradient w tle */
+	width: 500px;
+	height: 300px;
+	border: 1px solid black;
+	border-radius: 200px 5px 10px 20px;
+	text-align: center;
+	color: red;
+	font-family: monospace;
+	font-size: 64px;
+	background: linear-gradient(to bottom, white 0% 18%, #e31b23 18% 28%, white 28% 55%, #0756a5 55% 72%, white 72% 82%, #e31b23 82% 88%, white 88% 100%);
+}
+
+.wheel {
+	/* TODO: zrób z kwadratu koło z grubą ramką i uruchom animację spin */
+	width: 90px;
+	height: 90px;
+	background: #e8e8e8;
+	border: 10px solid black;
+	border-radius: 100px;
+	text-align: center;
+	animation: spin 0.10000000000555555s linear infinite;
+}
+
+#wheel-front {
+	/* TODO: ustaw pozycję przedniego koła */
+	position: relative;
+	bottom: 50px;
+	left: 70px;
+}
+
+#wheel-back {
+	/* TODO: ustaw pozycję tylnego koła */
+	position: relative;
+	bottom: 160px;
+	left: 350px;
+}
+
+@keyframes spin {
+	/* TODO: opisz pełny obrót od 0 do 360 stopni */
+	from { transform: rotate(0deg);}
+	to { transform: rotate(-360deg);}
+}
+
+#siren {
+	/* TODO: nadaj syrenie rozmiar, czarne tło i zaokrąglony górny brzeg */
+	position: relative;
+	left: 200px;
+	width: 67px;
+	height: 67px;
+	background-color: black;
+	border-radius: 50px 50px 5px 5px;
+}
+
+#siren:hover {
+	/* TODO: uruchom animację siren po najechaniu myszką */
+	animation: siren 1s infinite;
+	
+}
+
+@keyframes siren {
+	/* TODO: opisz zmianę koloru tła od czarnego, przez niebieski, do czerwonego */
+	0% { background-color: black;}
+	25%{ background-color: blue;}
+	100%{ background-color: red;}
+}	
+
+
+#emergency {
+	/* TODO: ustaw czerwoną tabliczkę z niebieską ramką i włącz płynne przejście */
+	position: absolute;
+	right: 30%;
+	top: 200px;
+	padding: 20px;
+	background: red;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	border: 2px solid blue;
+	border-radius: 10px;
+	transition: transform 0.15s;
+}
+
+#emergency:hover {
+	/* TODO: powiększ tabliczkę po najechaniu myszką */
+	transform: scale(1.5);
+
+}
