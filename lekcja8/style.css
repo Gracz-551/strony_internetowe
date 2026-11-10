@@ -1,0 +1,86 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Segoe UI", Arial, sans-serif;
+	color: rgb(31, 41, 55);
+	min-height: 100vh;
+	/* TODO: dodaj gradient liniowy jako tło strony */
+	background: darkblue;
+}
+
+header {
+	padding: 24px 32px;
+	color: white;
+	/* TODO: dodaj półprzezroczyste tło i cień tekstu dla nagłówka */
+	background: rgba(0, 0, 0, 0.35);
+}
+
+nav ul {
+	list-style: none;
+	display: flex;
+	gap: 16px;
+	margin-top: 12px;
+}
+
+nav a {
+	color: white;
+	text-decoration: none;
+}
+
+#intro {
+	padding: 32px;
+	color: white;
+	text-align: center;
+}
+
+/* TODO: dodaj style siatki .ranking-grid z flex-wrap, gap i wyśrodkowaniem kart */
+.ranking-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 24px;
+	padding: 32px;
+	justify-content: center;
+}
+
+
+.phone-card {
+	background: radial-gradient(circle at top, #ffffff, #e5e7eb);
+	width: 280px;
+	padding: 20px;
+	border-radius: 16px;
+	text-align: center;
+	box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.25);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	
+}
+
+.phone-card:hover {
+	transform: translateY(-8px);
+	box-shadow: 0px 14px 30px rgba(194, 182, 182, 0.65);
+}
+
+
+.phone-card img {
+	width: 100%;
+	border-radius: 12px;
+	margin-bottom: 12px;
+}
+.phone-card .score{
+	display: inline-block;
+	margin-top: 12px;
+	padding: 6px 12px;
+	background:  darkblue;
+	color: white;
+	border-radius: 999px;
+}
+
+footer {
+	padding: 24px;
+	text-align: center;
+	color: white;
+	background: rgba(0, 0, 0, 0.4);
+}
